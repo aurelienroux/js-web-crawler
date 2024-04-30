@@ -27,3 +27,19 @@ export function getURLsFromHTML(htmlBody, baseURL) {
 
   return href_array;
 }
+
+export async function crawlPage(url) {
+  const res = await fetch(url);
+
+  if (res.status !== 200) {
+    throw new Error("Couldn't fetch url");
+  }
+  if (!res.headers.get("content-type").includes("text/html")) {
+    throw new Error("Invalid response format");
+  }
+
+  const bodyHtml = await res.text();
+
+  // eslint-disable-next-line no-console
+  console.log(`/js-web-crawler/main.js l.26 bodyHtml => `, bodyHtml);
+}
